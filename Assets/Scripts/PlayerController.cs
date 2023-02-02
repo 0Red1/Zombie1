@@ -93,4 +93,62 @@ public class PlayerController : MonoBehaviour
         movement += verticalSpeed * Vector3.up * Time.deltaTime;
         cc.Move(movement);
     }
+
+    void UpdateAnimation()
+    {
+        /*if (!animator) return;
+
+        animator.SetFloat("Velocity", direction.magnitude);
+
+        if (cc.isGrounded)
+        {
+            animator.SetBool("isGrounded", true);
+
+            animator.SetFloat("ComboTimer", Mathf.Repeat(animator.GetCurrentAnimatorStateInfo(0).normalizedTime, 1));
+            if (inputs.Attack)
+            {
+                animator.SetTrigger("Attack");
+            }
+            else
+            {
+                animator.ResetTrigger("Attack");
+            }
+        }
+        else
+        {
+            animator.SetBool("isGrounded", false);
+            animator.SetBool("isBigLanding", bigLanding);
+            animator.SetFloat("VerticalSpeed", verticalSpeed);
+        }*/
+    }
+
+    public void MeleeAttackStart()
+    {
+        //staff.SetActive(true);
+    }
+
+    public void MeleeAttackEnd()
+    {
+        //staff.SetActive(false);
+    }
+
+    public void DistanceAttackStart()
+    {
+        //pistol.SetActive(true);
+    }
+
+    public void DistanceAttackEnd()
+    {
+        //pistol.SetActive(false);
+    }
+
+    public void CanMove()
+    {
+        //canMove = true;
+    }
+
+    public void Spawned()
+    {
+        //spawned = true;
+    }
 }
