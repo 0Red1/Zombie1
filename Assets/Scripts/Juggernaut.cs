@@ -21,8 +21,10 @@ public class Juggernaut : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            hm.maxHealth = 200f;
+            hm.maxHealth += 100f;
             hm.currentHealth = hm.maxHealth;
+            hm.healthBar.maxValue = hm.maxHealth;
+            hm.healthBar.value = hm.currentHealth;
             Destroy(gameObject);
         } 
     }

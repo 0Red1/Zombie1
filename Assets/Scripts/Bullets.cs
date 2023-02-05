@@ -29,13 +29,12 @@ public class Bullets : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy")
         {
-            //other.GetComponent<HealthManager>().Hurt(damage);
+            other.GetComponent<HealthManager>().Hurt(20);
             Destroy(gameObject);
         }
 
         if (other.gameObject.tag == "Decor")
         {
-            //other.GetComponent<HealthManager>().Hurt(damage);
             Destroy(gameObject);
         }
     }
