@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1236,7 +1236,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 1056073052}
   m_HandleRect: {fileID: 0}
@@ -1248,25 +1248,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!1 &958822927 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8416272007918961125, guid: 7caab4eb8f3376541b691db2a3144790,
-    type: 3}
-  m_PrefabInstance: {fileID: 1181177272}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &958822931
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 958822927}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.020000005, y: 0.02, z: 0.019999994}
-  m_Center: {x: 0.00000047683716, y: 0.0000000037252903, z: 0}
 --- !u!1 &1056073051
 GameObject:
   m_ObjectHideFlags: 0
@@ -1713,6 +1694,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8391222552659086748, guid: 7caab4eb8f3376541b691db2a3144790,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7640558969779515294, guid: 7caab4eb8f3376541b691db2a3144790,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7146521406498821007, guid: 7caab4eb8f3376541b691db2a3144790,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -4683669308469848369, guid: 7caab4eb8f3376541b691db2a3144790,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1726,12 +1722,17 @@ PrefabInstance:
     - target: {fileID: -516098083770646512, guid: 7caab4eb8f3376541b691db2a3144790,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7caab4eb8f3376541b691db2a3144790,
         type: 3}
       propertyPath: m_Name
       value: LaboRDC
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416272007918961125, guid: 7caab4eb8f3376541b691db2a3144790,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7caab4eb8f3376541b691db2a3144790, type: 3}
@@ -2485,7 +2486,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 2080167237}
   m_HandleRect: {fileID: 0}
@@ -2600,8 +2601,8 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1181177272}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &1934365348
-BoxCollider:
+--- !u!64 &1934365345
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2610,9 +2611,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.020000005, y: 0.020000001, z: 0}
-  m_Center: {x: -7.993598e-17, y: -1.788137e-10, z: -0.009999994}
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5495902117074765545, guid: 7caab4eb8f3376541b691db2a3144790, type: 3}
 --- !u!1 &1945725327
 GameObject:
   m_ObjectHideFlags: 0
