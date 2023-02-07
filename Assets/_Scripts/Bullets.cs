@@ -33,6 +33,12 @@ public class Bullets : MonoBehaviour
             Destroy(gameObject);
         }
 
+        if (other.gameObject.tag == "Distributor")
+        {
+            other.GetComponent<Distributor>().Break(1);
+            Destroy(gameObject);
+        }
+
         if (other.gameObject.tag == "Decor")
         {
             Destroy(gameObject);

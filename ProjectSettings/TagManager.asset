@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Decor
   - Enemy
+  - Distributor
   layers:
   - Default
   - TransparentFX

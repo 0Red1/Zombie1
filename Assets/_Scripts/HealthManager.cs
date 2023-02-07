@@ -5,9 +5,13 @@ using UnityEngine.UI;
 
 public class HealthManager : MonoBehaviour
 {
+    #region Variables
+
     public float currentHealth;
     public float maxHealth = 100f;
     public Slider healthBar;
+
+    #endregion
 
     // Start is called before the first frame update
     void Start()

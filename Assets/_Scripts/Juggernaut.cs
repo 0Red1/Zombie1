@@ -4,17 +4,22 @@ using UnityEngine;
 
 public class Juggernaut : MonoBehaviour
 {
-    public HealthManager hm;
+    #region Variables
+
+    private HealthManager hm;
+
+    #endregion
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        hm = GetComponent<HealthManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        hm = GetComponent<HealthManager>();
     }
 
     void OnTriggerEnter(Collider other)
