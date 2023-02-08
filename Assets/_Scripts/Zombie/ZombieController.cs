@@ -145,8 +145,16 @@ public class ZombieController : HealthManager
         _ui.UpdateHealthBar(_currentHealth, _healthBar);
         if (_currentHealth <= 0)
         {
-            Destroy(gameObject);
+            Death();
         }
+	}
+
+	private void Death(){
+		int drop = Random.Range(0, 100);
+		if (drop < 20){
+			print("drop Juggernaut");
+		}
+		Destroy(gameObject);
 	}
 	#endregion
 }
