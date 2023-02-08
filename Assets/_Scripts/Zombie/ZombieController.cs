@@ -57,7 +57,12 @@ public class ZombieController : HealthManager
 		_healthBar = Instantiate(sliderGO, transform);
 		_healthBar.transform.localPosition = new Vector3(0, healthBarOffsetY, 0);
 		_ui.SetHealthBar(_maxHealth, _healthBar);
+<<<<<<< Updated upstream
 	}
+=======
+
+    }
+>>>>>>> Stashed changes
 
     void FixedUpdate()
     {

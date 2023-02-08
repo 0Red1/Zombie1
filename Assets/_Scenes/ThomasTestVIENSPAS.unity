@@ -1164,37 +1164,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 9016011990127279136, guid: 39e9214a59b2ecf48833066527e19eb5,
-        type: 3}
-      propertyPath: ground
-      value: 
-      objectReference: {fileID: 1881303826}
-    - target: {fileID: 9016011990127279136, guid: 39e9214a59b2ecf48833066527e19eb5,
-        type: 3}
-      propertyPath: sliderGO
-      value: 
-      objectReference: {fileID: 4497850364140545336, guid: 7d344b837de06d542b62498d9b8759a7,
-        type: 3}
-    - target: {fileID: 9016011990127279136, guid: 39e9214a59b2ecf48833066527e19eb5,
-        type: 3}
-      propertyPath: maxHealth
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 9016011990127279136, guid: 39e9214a59b2ecf48833066527e19eb5,
-        type: 3}
-      propertyPath: attackDamage
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 9016011990127279136, guid: 39e9214a59b2ecf48833066527e19eb5,
-        type: 3}
-      propertyPath: healthBarOffsetY
-      value: 1.5
-      objectReference: {fileID: 0}
     - target: {fileID: 9016011990127279139, guid: 39e9214a59b2ecf48833066527e19eb5,
         type: 3}
       propertyPath: m_Name
       value: Zombie
       objectReference: {fileID: 0}
+<<<<<<< Updated upstream
     - target: {fileID: 9016011990127279139, guid: 39e9214a59b2ecf48833066527e19eb5,
         type: 3}
       propertyPath: m_IsActive
@@ -1205,6 +1180,8 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
+=======
+>>>>>>> Stashed changes
     - target: {fileID: 9016011990127279150, guid: 39e9214a59b2ecf48833066527e19eb5,
         type: 3}
       propertyPath: m_RootOrder
