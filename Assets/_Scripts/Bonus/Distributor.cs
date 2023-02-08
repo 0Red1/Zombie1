@@ -18,7 +18,12 @@ public class Distributor : MonoBehaviour
         if (damageBeforeDestruction <= 0)
         {
             Destroy(gameObject);
-            Instantiate(juggernaut);
+            Drop();
         }
+    }
+
+    private void Drop()
+    {
+        Instantiate(juggernaut, transform.position, Quaternion.identity);
     }
 }

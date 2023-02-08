@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Juggernaut : MonoBehaviour
+public class BonusManager : MonoBehaviour
 {
     #region Variables
 
@@ -30,7 +30,7 @@ public class Juggernaut : MonoBehaviour
             hm.currentHealth = hm.maxHealth;
             hm.healthBar.maxValue = hm.maxHealth;
             hm.healthBar.value = hm.currentHealth;
-            Destroy(gameObject);
+            Destroy(other.gameObject);
         } 
     }
 }

@@ -7,6 +7,7 @@ TagManager:
   - Decor
   - Enemy
   - Distributor
+  - Juggernaut
   layers:
   - Default
   - TransparentFX
