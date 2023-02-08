@@ -14,6 +14,7 @@ public class ZombieController : HealthManager
 	[SerializeField] private int offsetRandomDestination;
 	[SerializeField] private float timeBetweenAttacks;
 	[SerializeField] private GameObject sliderGO;
+	[SerializeField] private float healthBarOffsetY;
 
 	private NavMeshAgent _navAgent;
 	private GameObject _player;
@@ -52,15 +53,17 @@ public class ZombieController : HealthManager
 		_ui = UIManager.instance;
 
 		_maxHealth = MaxHealth;
-		_currentHealth = CurrentHealth;
+		_currentHealth = _maxHealth;
 		_attackDamage = AttackDamage;
-		_healthBar = Instantiate(sliderGO, _canvas.transform);
+		_healthBar = Instantiate(sliderGO, transform);
+		_healthBar.transform.localPosition = new Vector3(0, healthBarOffsetY, 0);
 
     }
 
     void FixedUpdate()
     {
 		if (!_attack){
+			_ui.UpdateHealthBarRotation(_healthBar);
 			CheckTarget();;
 			if (!_target){
 				if (!_hasRandomDestination){

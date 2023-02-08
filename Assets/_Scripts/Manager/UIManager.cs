@@ -32,9 +32,8 @@ public class UIManager : MonoBehaviour
 		healthBar.GetComponent<Slider>().value = currentLife;
 	}
 
-	public void UpdateHealthBarPosition(GameObject healthBar, GameObject objectToFollow){
-		Vector3 screenPos = Camera.main.WorldToScreenPoint(objectToFollow.transform.position);
-		print(screenPos);
+	public void UpdateHealthBarRotation(GameObject healthBar){
+		healthBar.transform.LookAt(Camera.main.transform); 
 	}
 	#endregion
 }

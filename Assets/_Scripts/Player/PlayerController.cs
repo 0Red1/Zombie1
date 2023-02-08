@@ -47,7 +47,7 @@ public class PlayerController : HealthManager
         _maxHealth = MaxHealth;
         _currentHealth = _maxHealth;
         _attackDamage = AttackDamage;
-        _healthBar = HealthBar;
+        //_healthBar = HealthBar;
     }
 
     // Update is called once per frame
