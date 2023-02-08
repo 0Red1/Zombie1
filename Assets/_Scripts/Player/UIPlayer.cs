@@ -8,6 +8,8 @@ public class UIPlayer : MonoBehaviour
 	#region Variables
     public Slider playerHealthBar;
     public Transform playerPosition;
+    public GameObject panelPause;
+    private bool menuIsOpen = false;
     #endregion
 
     #region Properties
@@ -17,7 +19,8 @@ public class UIPlayer : MonoBehaviour
     #region Builts Methods
     void Start()
     {
-        
+        panelPause.SetActive(false);
+        menuIsOpen = false;
     }
 	
 	
@@ -26,9 +29,18 @@ public class UIPlayer : MonoBehaviour
     {
         //playerPosition = 
         //playerHealthBar = playerPosition;
+        MenuPause();
     }
 	#endregion
 
     #region Custom Methods
+    void MenuPause()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape) && !menuIsOpen)
+        {
+            panelPause.SetActive(true);
+            menuIsOpen = true;
+        }
+    }
     #endregion
 }
