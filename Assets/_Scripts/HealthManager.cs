@@ -7,33 +7,37 @@ public class HealthManager : MonoBehaviour
 {
     #region Variables
 
-    public float currentHealth;
-    public float maxHealth = 100f;
-    public Slider healthBar;
+    [Header("HealthManager")]
+    [SerializeField] private int maxHealth;
+    [SerializeField] private int attackDamage;
+    [SerializeField] private Slider healthBar;
 
+    private int _currentHealth;
     #endregion
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        currentHealth = maxHealth;
-        healthBar.value = currentHealth;
+    #region Properties
+    public int MaxHealth => maxHealth;
+    public int AttackDamage => attackDamage;
+    public Slider HealthBar => healthBar;
+    public int CurrentHealth => _currentHealth;
+    #endregion
+
+    #region Built in Methods
+    void Start(){
+        _currentHealth = maxHealth;
     }
+    #endregion
 
-    // Update is called once per frame
-    void Update()
+    #region Custom Methods
+    /*public void Hurt(int damage)
     {
-        
-    }
+        _currentHealth -= damage;
+        _healthBar.value = _currentHealth;
 
-    public void Hurt(int damage)
-    {
-        currentHealth -= damage;
-        healthBar.value = currentHealth;
-
-        if (currentHealth <= 0)
+        if (_currentHealth <= 0)
         {
             Destroy(gameObject);
         }
-    }
+    }*/
+    #endregion
 }

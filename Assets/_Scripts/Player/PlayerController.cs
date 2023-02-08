@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : HealthManager
 {
     #region Variables
 
@@ -24,6 +25,11 @@ public class PlayerController : MonoBehaviour
     private Camera cam;
     private CharacterController cc;
 
+    private int _maxHealth;
+    private int _currentHealth;
+    private int _attackDamage;
+    private Slider _healthBar;
+
     #endregion
 
 
@@ -37,6 +43,11 @@ public class PlayerController : MonoBehaviour
         cam = Camera.main;
         inputs = GetComponent<PlayerInputs>();
         cc = GetComponent<CharacterController>();
+
+        _maxHealth = MaxHealth;
+        _currentHealth = _maxHealth;
+        _attackDamage = AttackDamage;
+        _healthBar = HealthBar;
     }
 
     // Update is called once per frame

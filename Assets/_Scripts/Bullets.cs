@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullets : MonoBehaviour
 {
-    public float damage;
+    /*public float damage;
 
     public float speed;
     public float destroyerTime;
@@ -43,5 +43,5 @@ public class Bullets : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
+    }*/
 }

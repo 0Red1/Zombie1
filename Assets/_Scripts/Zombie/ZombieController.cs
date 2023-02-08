@@ -2,26 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
-public class ZombieController : MonoBehaviour
+public class ZombieController : HealthManager
 {
     #region Variables
+	[Header("ZombieController")]
 	[SerializeField] private float attackRange;
 	[SerializeField] private float detectionRange;
 	[SerializeField] private float chaseRange;
 	[SerializeField] private int offsetRandomDestination;
 	[SerializeField] private float timeBetweenAttacks;
+	[SerializeField] private GameObject sliderGO;
 
 	private NavMeshAgent _navAgent;
 	private GameObject _player;
 	private GameObject _attackDetect;
 	private GameObject _ground;
+	private GameObject _canvas;
+	
+	private UIManager _ui;
 
 	private GameObject _target;
 	private bool _attack = false;
 	private Vector2 _groundSize;
 	private bool _hasRandomDestination = false;
 	private bool _canAttack = false;
+
+	private int _maxHealth;
+	private int _currentHealth;
+	private int _attackDamage;
+	private GameObject _healthBar;
 	#endregion
 	
 	#region Properties
@@ -35,7 +46,16 @@ public class ZombieController : MonoBehaviour
 		_player = GameObject.Find("Player");
 		_attackDetect = transform.GetChild(1).gameObject;
 		_ground = GameObject.Find("Ground");
+		_canvas = GameObject.Find("Canvas");
 		_groundSize = new Vector2(_ground.GetComponent<Renderer>().bounds.size.x, _ground.GetComponent<Renderer>().bounds.size.z);
+
+		_ui = UIManager.instance;
+
+		_maxHealth = MaxHealth;
+		_currentHealth = CurrentHealth;
+		_attackDamage = AttackDamage;
+		_healthBar = Instantiate(sliderGO, _canvas.transform);
+
     }
 
     void FixedUpdate()
@@ -115,6 +135,15 @@ public class ZombieController : MonoBehaviour
 		_navAgent.destination = transform.position;
 		yield return new WaitForSeconds(1f);
 		_navAgent.destination = _target.transform.position;
+	}
+
+	public void Hurt(int damage){
+		_currentHealth -= damage;
+        _ui.UpdateHealthBar(_currentHealth, _healthBar);
+        if (_currentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
 	}
 	#endregion
 }
