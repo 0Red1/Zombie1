@@ -115,12 +115,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 192dfcd772534a344a8ad87527e95637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 100
+  attackDamage: 20
   attackRange: 2
   detectionRange: 8
   chaseRange: 15
-  ground: {fileID: 0}
   offsetRandomDestination: 5
   timeBetweenAttacks: 2
+  sliderGO: {fileID: 4497850364140545336, guid: 7d344b837de06d542b62498d9b8759a7,
+    type: 3}
+  healthBarOffsetY: 1.5
 --- !u!54 &9016011990127279151
 Rigidbody:
   m_ObjectHideFlags: 0
