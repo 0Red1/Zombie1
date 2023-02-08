@@ -21,15 +21,5 @@ public class HealthManager : MonoBehaviour
     #endregion
 
     #region Custom Methods
-    /*public void Hurt(int damage)
-    {
-        _currentHealth -= damage;
-        _healthBar.value = _currentHealth;
-
-        if (_currentHealth <= 0)
-        {
-            Destroy(gameObject);
-        }
-    }*/
     #endregion
 }

@@ -42,7 +42,6 @@ public class ZombieController : HealthManager
 	#region Built in Methods
 	void Start()
     {
-        
 		_navAgent = GetComponent<NavMeshAgent>();
 		_player = GameObject.Find("Player");
 		_attackDetect = transform.GetChild(1).gameObject;
@@ -57,8 +56,8 @@ public class ZombieController : HealthManager
 		_attackDamage = AttackDamage;
 		_healthBar = Instantiate(sliderGO, transform);
 		_healthBar.transform.localPosition = new Vector3(0, healthBarOffsetY, 0);
-
-    }
+		_ui.SetHealthBar(_maxHealth, _healthBar);
+	}
 
     void FixedUpdate()
     {

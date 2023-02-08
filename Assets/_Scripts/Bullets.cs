@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullets : MonoBehaviour
 {
-    /*public float damage;
+    public float damage;
 
     public float speed;
     public float destroyerTime;
@@ -29,7 +29,7 @@ public class Bullets : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy")
         {
-            other.GetComponent<HealthManager>().Hurt(20);
+            other.GetComponent<PlayerController>().Hurt(20);
             Destroy(gameObject);
         }
 
@@ -43,5 +43,5 @@ public class Bullets : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }*/
+    }
 }

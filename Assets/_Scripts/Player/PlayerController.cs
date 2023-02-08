@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerController : HealthManager
 {
@@ -11,6 +10,8 @@ public class PlayerController : HealthManager
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float turnSmoothVelocity = 0.1f;
     [SerializeField] private float turnSmoothTime = 0.1f;
+    [SerializeField] private GameObject sliderGO;
+    [SerializeField] private float healthBarOffsetY;
 
     private float horizontal, vertical;
     private float verticalSpeed;
@@ -28,7 +29,8 @@ public class PlayerController : HealthManager
     private int _maxHealth;
     private int _currentHealth;
     private int _attackDamage;
-    private Slider _healthBar;
+    private GameObject PlayerHealthBar;
+    private UIManager _ui;
 
     #endregion
 
@@ -41,12 +43,16 @@ public class PlayerController : HealthManager
     void Start()
     {
         cam = Camera.main;
+		_ui = UIManager.instance;
         inputs = GetComponent<PlayerInputs>();
         cc = GetComponent<CharacterController>();
 
         _maxHealth = MaxHealth;
         _currentHealth = _maxHealth;
         _attackDamage = AttackDamage;
+        PlayerHealthBar = Instantiate(sliderGO, transform);
+        PlayerHealthBar.transform.localPosition = new Vector3(0, healthBarOffsetY, 0);
+        _ui.SetHealthBar(_maxHealth, PlayerHealthBar);
         //_healthBar = HealthBar;
     }
 
@@ -55,6 +61,7 @@ public class PlayerController : HealthManager
     {
         Movement();
         VerticalMovement();
+        _ui.UpdateHealthBarRotation(PlayerHealthBar);
     }
 
     #endregion
@@ -103,6 +110,17 @@ public class PlayerController : HealthManager
 
         movement += verticalSpeed * Vector3.up * Time.deltaTime;
         cc.Move(movement);
+    }
+
+    public void Hurt(int damage)
+    {
+        _currentHealth -= damage;
+        //_healthBar.value = _currentHealth;
+
+        if (_currentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void UpdateAnimation()
