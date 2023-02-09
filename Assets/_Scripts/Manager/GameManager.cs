@@ -5,6 +5,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     #region Variables
+	[SerializeField] private Material opacityMaterial;
+
+	private Material _originMaterial;
+
 	public static GameManager instance;
 	#endregion
 	
@@ -22,9 +26,17 @@ public class GameManager : MonoBehaviour
 	#endregion
 	
 	#region Custom Methods
-	public void ChangeOpacity(GameObject target, float value){
-		Color matColor = target.GetComponent<Renderer>().material.color;
-		target.GetComponent<Renderer>().material.color = new Color(matColor.r, matColor.g, matColor.b, value);
+	public void ChangeOpacity(GameObject roof){
+		Material matToSet;
+		if (!_originMaterial){
+			_originMaterial = roof.GetComponent<Renderer>().material;
+			matToSet = opacityMaterial;
+		}
+		else{
+			matToSet = _originMaterial;
+			_originMaterial = null;
+		}
+		roof.GetComponent<Renderer>().material = matToSet;
 	}
 	#endregion
 }

@@ -25,6 +25,7 @@ public class PlayerController : StatsManager
     private PlayerInputs inputs;
     private Camera cam;
     private CharacterController cc;
+    private GameManager _gm;
 
     private int _maxHealth;
     private int _currentHealth;
@@ -32,6 +33,7 @@ public class PlayerController : StatsManager
     private GameObject PlayerHealthBar;
     private UIManager _ui;
     private Vector2 _screenSize;
+    private GameObject _healthBarSlider;
 
     #endregion
 
@@ -47,13 +49,15 @@ public class PlayerController : StatsManager
 		_ui = UIManager.instance;
         inputs = GetComponent<PlayerInputs>();
         cc = GetComponent<CharacterController>();
+        _gm = GameManager.instance;
 
         _maxHealth = MaxHealth;
         _currentHealth = _maxHealth;
         _attackDamage = AttackDamage;
         PlayerHealthBar = Instantiate(sliderGO, transform);
         PlayerHealthBar.transform.localPosition = new Vector3(0, healthBarOffsetY, 0);
-        _ui.SetHealthBar(_maxHealth, PlayerHealthBar.transform.GetChild(0).GetChild(0).gameObject);
+        _healthBarSlider = PlayerHealthBar.transform.GetChild(0).GetChild(0).gameObject;
+        _ui.SetHealthBar(_maxHealth, _healthBarSlider);
     }
 
     // Update is called once per frame
@@ -70,11 +74,24 @@ public class PlayerController : StatsManager
             Destroy(other.gameObject);
             JuggernautBonus();
         }
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Batiment")){
+            GameObject roof = other.gameObject.transform.GetChild(0).GetChild(1).gameObject;
+            _gm.ChangeOpacity(roof);
+        }
+    }
+
+    void OnTriggerExit(Collider other){
+        if (other.gameObject.layer == LayerMask.NameToLayer("Batiment")){
+            GameObject roof = other.gameObject.transform.GetChild(0).GetChild(1).gameObject;
+            _gm.ChangeOpacity(roof);
+        }
     }
 
     #endregion
     void JuggernautBonus(){
         print("BONUS");
+        //après avoir mit les bonus
+        _ui.SetHealthBar(_maxHealth, _healthBarSlider);
     }
     
     void Movement()
@@ -134,7 +151,7 @@ public class PlayerController : StatsManager
     public void Hurt(int damage)
     {
         _currentHealth -= damage;
-        //_healthBar.value = _currentHealth;
+        _ui.UpdateHealthBar(_currentHealth, _healthBarSlider);
 
         if (_currentHealth <= 0)
         {
