@@ -29,7 +29,7 @@ public class Bullets : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Zombie"))
         {
-            other.transform.parent.GetComponent<ZombieController>().Hurt(damage);
+            other.GetComponent<ZombieController>().Hurt(damage);
             Destroy(gameObject);
         }
 
@@ -39,7 +39,7 @@ public class Bullets : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (other.gameObject.layer == LayerMask.NameToLayer("Decor") ||other.gameObject.layer == LayerMask.NameToLayer("Batiment"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Decor"))
         {
             Destroy(gameObject);
         }

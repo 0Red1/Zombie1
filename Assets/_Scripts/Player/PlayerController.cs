@@ -87,9 +87,7 @@ public class PlayerController : StatsManager
 
     #endregion
     void JuggernautBonus(){
-        print("BONUS");
         _maxHealth += 100;
-        //après avoir mit les bonus
         _ui.SetHealthBar(_maxHealth, _healthBarSlider, _currentHealth);
     }
     
