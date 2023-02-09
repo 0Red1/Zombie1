@@ -156,6 +156,10 @@ public class PlayerController : StatsManager
         }
     }
 
+    public void Death(){
+        Destroy(gameObject);
+    }
+
     void UpdateAnimation()
     {
         /*if (!animator) return;
