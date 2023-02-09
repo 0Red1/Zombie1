@@ -23,9 +23,15 @@ public class UIManager : MonoBehaviour
 	#endregion
 	
 	#region Custom Methods
-	public void SetHealthBar(int maxHealth, GameObject healthBar){
+	public void SetHealthBar(int maxHealth, GameObject healthBar, int currentLife){
 		healthBar.GetComponent<Slider>().maxValue = maxHealth;
-		healthBar.GetComponent<Slider>().value = maxHealth;
+		if (currentLife != 0){
+			healthBar.GetComponent<Slider>().value = currentLife;
+
+		}
+		else{
+			healthBar.GetComponent<Slider>().value = maxHealth;
+		}
 	}
 
 	public void UpdateHealthBar(int currentLife, GameObject healthBar){

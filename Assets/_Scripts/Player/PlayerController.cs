@@ -57,7 +57,7 @@ public class PlayerController : StatsManager
         PlayerHealthBar = Instantiate(sliderGO, transform);
         PlayerHealthBar.transform.localPosition = new Vector3(0, healthBarOffsetY, 0);
         _healthBarSlider = PlayerHealthBar.transform.GetChild(0).GetChild(0).gameObject;
-        _ui.SetHealthBar(_maxHealth, _healthBarSlider);
+        _ui.SetHealthBar(_maxHealth, _healthBarSlider, 0);
     }
 
     // Update is called once per frame
@@ -91,7 +91,7 @@ public class PlayerController : StatsManager
     void JuggernautBonus(){
         print("BONUS");
         //après avoir mit les bonus
-        _ui.SetHealthBar(_maxHealth, _healthBarSlider);
+        _ui.SetHealthBar(_maxHealth, _healthBarSlider, _currentHealth);
     }
     
     void Movement()

@@ -48,7 +48,7 @@ public class ZombieController : StatsManager
 		_navAgent = GetComponent<NavMeshAgent>();
 		_player = GameObject.Find("Player");
 		_attackDetect = transform.GetChild(1).gameObject;
-		_ground = GameObject.Find("Ground");
+		_ground = GameObject.Find("BasePlane");
 		_canvas = GameObject.Find("Canvas");
 		_groundSize = new Vector2(_ground.GetComponent<Renderer>().bounds.size.x, _ground.GetComponent<Renderer>().bounds.size.z);
 
