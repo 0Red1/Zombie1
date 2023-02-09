@@ -60,7 +60,7 @@ public class ZombieController : StatsManager
 		_healthBar = Instantiate(sliderGO, transform);;
 		_healthBarSlider = _healthBar.transform.GetChild(0).GetChild(0).gameObject;
 		_healthBar.transform.localPosition = new Vector3(0, healthBarOffsetY, 0);
-		_ui.SetHealthBar(_maxHealth, _healthBarSlider);
+		_ui.SetHealthBar(_maxHealth, _healthBarSlider, 0);
 
     }
 
