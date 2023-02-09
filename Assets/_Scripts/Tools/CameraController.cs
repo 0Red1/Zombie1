@@ -18,6 +18,7 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         transform.position = new Vector3(player.position.x, transform.position.y, player.position.z + offset);
+        transform.LookAt(player.position);
     }
     #endregion
 

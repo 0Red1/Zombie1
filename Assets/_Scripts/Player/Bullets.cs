@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullets : MonoBehaviour
 {
-    public float damage;
+    public int damage;
 
     public float speed;
     public float destroyerTime;
@@ -27,9 +27,9 @@ public class Bullets : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Enemy")
+        if (other.gameObject.layer == LayerMask.NameToLayer("Zombie"))
         {
-            other.GetComponent<PlayerController>().Hurt(20);
+            other.transform.parent.GetComponent<ZombieController>().Hurt(damage);
             Destroy(gameObject);
         }
 

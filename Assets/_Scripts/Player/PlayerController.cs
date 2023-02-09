@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : HealthManager
+public class PlayerController : StatsManager
 {
     #region Variables
 
@@ -31,6 +31,7 @@ public class PlayerController : HealthManager
     private int _attackDamage;
     private GameObject PlayerHealthBar;
     private UIManager _ui;
+    private Vector2 _screenSize;
 
     #endregion
 
@@ -52,8 +53,7 @@ public class PlayerController : HealthManager
         _attackDamage = AttackDamage;
         PlayerHealthBar = Instantiate(sliderGO, transform);
         PlayerHealthBar.transform.localPosition = new Vector3(0, healthBarOffsetY, 0);
-        _ui.SetHealthBar(_maxHealth, PlayerHealthBar);
-        //_healthBar = HealthBar;
+        _ui.SetHealthBar(_maxHealth, PlayerHealthBar.transform.GetChild(0).GetChild(0).gameObject);
     }
 
     // Update is called once per frame
@@ -61,6 +61,7 @@ public class PlayerController : HealthManager
     {
         Movement();
         VerticalMovement();
+        PlayerRotation();
         _ui.UpdateHealthBarRotation(PlayerHealthBar);
     }
 
@@ -110,6 +111,14 @@ public class PlayerController : HealthManager
 
         movement += verticalSpeed * Vector3.up * Time.deltaTime;
         cc.Move(movement);
+        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+    }
+
+    void PlayerRotation(){
+        _screenSize = new Vector2(Screen.width, Screen.height);
+        Vector3 lookPosition = new Vector3(Input.mousePosition.x - _screenSize.x/2, 0, Input.mousePosition.y - _screenSize.y/2);
+        transform.LookAt(transform.position + new Vector3(0, 1, 0));
+        transform.LookAt(-lookPosition);
     }
 
     public void Hurt(int damage)

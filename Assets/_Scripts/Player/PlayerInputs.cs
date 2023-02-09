@@ -7,6 +7,7 @@ public class PlayerInputs : MonoBehaviour
     #region Variables
 
     private Vector2 movement = Vector2.zero;
+    private bool _attack;
 
     #endregion
 
@@ -14,16 +15,11 @@ public class PlayerInputs : MonoBehaviour
     #region Properties
 
     public Vector2 Movement => movement;
+    public bool Attack => _attack;
 
     #endregion
 
     #region Built in Methods
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -36,6 +32,7 @@ public class PlayerInputs : MonoBehaviour
     void GetInputs()
     {
         movement.Set(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        _attack = Input.GetMouseButtonDown(0);
     }
 
     #endregion

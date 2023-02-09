@@ -14,11 +14,15 @@ public class Gun : MonoBehaviour
 
     [Tooltip("objet que regarde le player")]
 
+    [SerializeField] private float offsetAmmo;
+    [SerializeField] private Transform ammoPos;
+
 
     private int layerMask = 1 << 6;
     private Bullets bullets;
-    public Transform player;
+    public GameObject player;
     private Camera cam;
+    private PlayerInputs _inputs;
 
     #endregion
 
@@ -28,7 +32,7 @@ public class Gun : MonoBehaviour
     {
         cam = Camera.main;
         bullets = GetComponent<Bullets>();
-        StartCoroutine(Shoot()); 
+        _inputs = player.GetComponent<PlayerInputs>();
     }
     void Update()
     {
@@ -39,7 +43,7 @@ public class Gun : MonoBehaviour
 
     public IEnumerator Shoot()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (_inputs.Attack)
         {
             AmmoInstantiate();
             yield return new WaitForSeconds(rateFire);
@@ -48,8 +52,9 @@ public class Gun : MonoBehaviour
 
     void AmmoInstantiate()
     {
-        GameObject bullet = Instantiate(ammo, gameObject.transform.position, Quaternion.identity);
-        bullet.transform.eulerAngles = player.eulerAngles;
+        //Vector3 ammoPos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + offsetAmmo, gameObject.transform.position.z);
+        GameObject bullet = Instantiate(ammo, ammoPos.position, Quaternion.identity);
+        bullet.transform.eulerAngles = player.transform.eulerAngles;
     }
 
     void Look()

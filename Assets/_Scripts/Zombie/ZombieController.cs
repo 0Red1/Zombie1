@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-public class ZombieController : HealthManager
+public class ZombieController : StatsManager
 {
     #region Variables
 	[Header("ZombieController")]
@@ -34,6 +34,8 @@ public class ZombieController : HealthManager
 	private int _currentHealth;
 	private int _attackDamage;
 	private GameObject _healthBar;
+	private GameObject _healthBarSlider;
+	private bool _trigger = false;
 	#endregion
 	
 	#region Properties
@@ -54,20 +56,17 @@ public class ZombieController : HealthManager
 		_maxHealth = MaxHealth;
 		_currentHealth = _maxHealth;
 		_attackDamage = AttackDamage;
-		_healthBar = Instantiate(sliderGO, transform);
+		_healthBar = Instantiate(sliderGO, transform);;
+		_healthBarSlider = _healthBar.transform.GetChild(0).GetChild(0).gameObject;
 		_healthBar.transform.localPosition = new Vector3(0, healthBarOffsetY, 0);
-		_ui.SetHealthBar(_maxHealth, _healthBar);
-<<<<<<< Updated upstream
-	}
-=======
+		_ui.SetHealthBar(_maxHealth, _healthBarSlider);
 
     }
->>>>>>> Stashed changes
 
     void FixedUpdate()
     {
+		_ui.UpdateHealthBarRotation(_healthBar);
 		if (!_attack){
-			_ui.UpdateHealthBarRotation(_healthBar);
 			CheckTarget();;
 			if (!_target){
 				if (!_hasRandomDestination){
@@ -98,7 +97,11 @@ public class ZombieController : HealthManager
 		if (distance <= detectionRange && !_target){
 			_hasRandomDestination = false;
 			_target = _player;
+			_trigger = true;
 			StartCoroutine(SetTarget());
+		}
+		else if (distance < chaseRange && _target && !_trigger){
+			UpdateTargetPosition();
 		}
 		else if (distance >= chaseRange && _target){
 			_target = null;
@@ -120,7 +123,6 @@ public class ZombieController : HealthManager
 		int randomZ = Random.Range(-groundLimit + offsetRandomDestination, groundLimit - offsetRandomDestination);
 		randomDestination = new Vector3(randomX, 0, randomZ);
 		_navAgent.destination = randomDestination;
-		print(randomDestination);
 	}
 
 	private void CheckRandomDestination(){
@@ -129,24 +131,30 @@ public class ZombieController : HealthManager
 		}
 	}
 
+	private void UpdateTargetPosition(){
+		_navAgent.destination = _target.transform.position;
+	}
+
 	IEnumerator Attack(){
 		_attackDetect.SetActive(true);
 		_canAttack = true;
 		yield return new WaitForSeconds(timeBetweenAttacks);
 		_attack = false;
 		_canAttack = false;
+		_target = null;
 		_attackDetect.SetActive(false);
 	}
 
 	IEnumerator SetTarget(){
 		_navAgent.destination = transform.position;
 		yield return new WaitForSeconds(1f);
+		_trigger = false;
 		_navAgent.destination = _target.transform.position;
 	}
 
 	public void Hurt(int damage){
 		_currentHealth -= damage;
-        _ui.UpdateHealthBar(_currentHealth, _healthBar);
+        _ui.UpdateHealthBar(_currentHealth, _healthBarSlider);
         if (_currentHealth <= 0)
         {
             Death();

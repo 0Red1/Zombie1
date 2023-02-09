@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthManager : MonoBehaviour
+public class StatsManager : MonoBehaviour
 {
     #region Variables
 
-    [Header("HealthManager")]
+    [Header("StatsManager")]
     [SerializeField] private int maxHealth;
     [SerializeField] private int attackDamage;
     #endregion
