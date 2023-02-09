@@ -15,6 +15,7 @@ public class ZombieController : StatsManager
 	[SerializeField] private float timeBetweenAttacks;
 	[SerializeField] private GameObject sliderGO;
 	[SerializeField] private float healthBarOffsetY;
+	[SerializeField] private GameObject juggernautGO;
 
 	private NavMeshAgent _navAgent;
 	private GameObject _player;
@@ -162,9 +163,9 @@ public class ZombieController : StatsManager
 	}
 
 	private void Death(){
-		int drop = Random.Range(0, 100);
-		if (drop < 20){
-			print("drop Juggernaut");
+		float drop = Random.Range(0.1f, 1f);
+		if (drop < 0.91f){
+			Instantiate(juggernautGO, transform.position, Quaternion.identity);
 		}
 		Destroy(gameObject);
 	}

@@ -617,6 +617,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 9016011990127279136, guid: 39e9214a59b2ecf48833066527e19eb5,
+        type: 3}
+      propertyPath: juggernautGO
+      value: 
+      objectReference: {fileID: 8304140187120273532, guid: 86d284d1545c7ba46abbe97ac2cb2c13,
+        type: 3}
     - target: {fileID: 9016011990127279139, guid: 39e9214a59b2ecf48833066527e19eb5,
         type: 3}
       propertyPath: m_Name
