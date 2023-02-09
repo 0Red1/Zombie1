@@ -16,12 +16,14 @@ public class ZombieController : StatsManager
 	[SerializeField] private GameObject sliderGO;
 	[SerializeField] private float healthBarOffsetY;
 	[SerializeField] private GameObject juggernautGO;
+	[SerializeField] private GameObject bloodParticles;
 
 	private NavMeshAgent _navAgent;
 	private GameObject _player;
 	private GameObject _attackDetect;
 	private GameObject _ground;
 	private GameObject _canvas;
+	private Animator _animator;
 	
 	private UIManager _ui;
 
@@ -38,11 +40,6 @@ public class ZombieController : StatsManager
 	private GameObject _healthBarSlider;
 	private bool _trigger = false;
 
-	private enum State{
-        Walk,
-		Hit,
-    }
-
 	#endregion
 	
 	#region Properties
@@ -57,6 +54,7 @@ public class ZombieController : StatsManager
 		_ground = GameObject.Find("BasePlane");
 		_canvas = GameObject.Find("Canvas");
 		_groundSize = new Vector2(_ground.GetComponent<Renderer>().bounds.size.x, _ground.GetComponent<Renderer>().bounds.size.z);
+		_animator = GetComponent<Animator>();
 
 		_ui = UIManager.instance;
 
@@ -105,6 +103,7 @@ public class ZombieController : StatsManager
 			_hasRandomDestination = false;
 			_target = _player;
 			_trigger = true;
+			_animator.SetTrigger("HitDetect");
 			StartCoroutine(SetTarget());
 		}
 		else if (distance < chaseRange && _target && !_trigger){
@@ -160,6 +159,7 @@ public class ZombieController : StatsManager
 	}
 
 	public void Hurt(int damage){
+		_animator.SetTrigger("HitDetect");
 		_currentHealth -= damage;
         _ui.UpdateHealthBar(_currentHealth, _healthBarSlider);
         if (_currentHealth <= 0)
@@ -173,6 +173,7 @@ public class ZombieController : StatsManager
 		if (drop < 0.91f){
 			Instantiate(juggernautGO, transform.position, Quaternion.identity);
 		}
+		Instantiate(bloodParticles, transform.position, Quaternion.identity);
 		Destroy(gameObject);
 	}
 	#endregion
