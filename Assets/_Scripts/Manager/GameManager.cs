@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     #region Variables
 	[SerializeField] private Material opacityMaterial;
+	[SerializeField] private List<GameObject> objectToChangeOpacity = new List<GameObject>();
 
 	private Material _originMaterial;
 
@@ -26,17 +27,19 @@ public class GameManager : MonoBehaviour
 	#endregion
 	
 	#region Custom Methods
-	public void ChangeOpacity(GameObject roof){
+	public void ChangeOpacity(){
 		Material matToSet;
 		if (!_originMaterial){
-			_originMaterial = roof.GetComponent<Renderer>().material;
+			_originMaterial = objectToChangeOpacity[0].GetComponent<Renderer>().material;
 			matToSet = opacityMaterial;
 		}
 		else{
 			matToSet = _originMaterial;
 			_originMaterial = null;
 		}
-		roof.GetComponent<Renderer>().material = matToSet;
+		foreach (GameObject batGO in objectToChangeOpacity){
+			batGO.GetComponent<Renderer>().material = matToSet;
+		}
 	}
 	#endregion
 }

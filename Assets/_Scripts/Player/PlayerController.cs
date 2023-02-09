@@ -75,15 +75,13 @@ public class PlayerController : StatsManager
             JuggernautBonus();
         }
         else if (other.gameObject.layer == LayerMask.NameToLayer("Batiment")){
-            GameObject roof = other.gameObject.transform.GetChild(0).GetChild(1).gameObject;
-            _gm.ChangeOpacity(roof);
+            _gm.ChangeOpacity();
         }
     }
 
     void OnTriggerExit(Collider other){
         if (other.gameObject.layer == LayerMask.NameToLayer("Batiment")){
-            GameObject roof = other.gameObject.transform.GetChild(0).GetChild(1).gameObject;
-            _gm.ChangeOpacity(roof);
+            _gm.ChangeOpacity();
         }
     }
 

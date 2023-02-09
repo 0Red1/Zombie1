@@ -39,7 +39,7 @@ public class Bullets : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (other.gameObject.tag == "Decor")
+        if (other.gameObject.layer == LayerMask.NameToLayer("Decor") ||other.gameObject.layer == LayerMask.NameToLayer("Batiment"))
         {
             Destroy(gameObject);
         }
