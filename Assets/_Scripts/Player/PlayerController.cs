@@ -30,10 +30,11 @@ public class PlayerController : StatsManager
     private int _maxHealth;
     private int _currentHealth;
     private int _attackDamage;
-    private GameObject PlayerHealthBar;
-    private UIManager _ui;
     private Vector2 _screenSize;
+    private UIManager _ui;
+    private GameObject PlayerHealthBar;
     private GameObject _healthBarSlider;
+    private Animator animator;
 
     #endregion
 
@@ -49,6 +50,8 @@ public class PlayerController : StatsManager
 		_ui = UIManager.instance;
         inputs = GetComponent<PlayerInputs>();
         cc = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
+
         _gm = GameManager.instance;
 
         _maxHealth = MaxHealth;
@@ -67,6 +70,7 @@ public class PlayerController : StatsManager
         VerticalMovement();
         PlayerRotation();
         _ui.UpdateHealthBarRotation(PlayerHealthBar);
+        UpdateAnimation();
     }
 
     void OnTriggerEnter(Collider other){
@@ -152,65 +156,29 @@ public class PlayerController : StatsManager
 
         if (_currentHealth <= 0)
         {
-            Destroy(gameObject);
+            animator.SetBool("Death", true);
         }
     }
 
     void UpdateAnimation()
     {
-        /*if (!animator) return;
 
+        Debug.Log("hi hi hi ha !");
         animator.SetFloat("Velocity", direction.magnitude);
 
-        if (cc.isGrounded)
+        if (inputs.Attack)
         {
-            animator.SetBool("isGrounded", true);
-
-            animator.SetFloat("ComboTimer", Mathf.Repeat(animator.GetCurrentAnimatorStateInfo(0).normalizedTime, 1));
-            if (inputs.Attack)
-            {
-                animator.SetTrigger("Attack");
-            }
-            else
-            {
-                animator.ResetTrigger("Attack");
-            }
+            Debug.Log("hi hi hi ha ! 2");
+            animator.SetTrigger("Attack");
         }
         else
         {
-            animator.SetBool("isGrounded", false);
-            animator.SetBool("isBigLanding", bigLanding);
-            animator.SetFloat("VerticalSpeed", verticalSpeed);
-        }*/
+            animator.ResetTrigger("Attack");
+        }
     }
 
-    public void MeleeAttackStart()
+    public void Death()
     {
-        //staff.SetActive(true);
-    }
-
-    public void MeleeAttackEnd()
-    {
-        //staff.SetActive(false);
-    }
-
-    public void DistanceAttackStart()
-    {
-        //pistol.SetActive(true);
-    }
-
-    public void DistanceAttackEnd()
-    {
-        //pistol.SetActive(false);
-    }
-
-    public void CanMove()
-    {
-        //canMove = true;
-    }
-
-    public void Spawned()
-    {
-        //spawned = true;
+        Destroy(gameObject);
     }
 }
