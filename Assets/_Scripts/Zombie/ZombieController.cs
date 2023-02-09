@@ -37,6 +37,12 @@ public class ZombieController : StatsManager
 	private GameObject _healthBar;
 	private GameObject _healthBarSlider;
 	private bool _trigger = false;
+
+	private enum State{
+        Walk,
+		Hit,
+    }
+
 	#endregion
 	
 	#region Properties
