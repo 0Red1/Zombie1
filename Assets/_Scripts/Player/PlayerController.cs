@@ -65,8 +65,18 @@ public class PlayerController : StatsManager
         _ui.UpdateHealthBarRotation(PlayerHealthBar);
     }
 
-    #endregion
+    void OnTriggerEnter(Collider other){
+        if (other.gameObject.tag == "Juggernaut"){
+            Destroy(other.gameObject);
+            JuggernautBonus();
+        }
+    }
 
+    #endregion
+    void JuggernautBonus(){
+        print("BONUS");
+    }
+    
     void Movement()
     {
         if (!inputs) return;
