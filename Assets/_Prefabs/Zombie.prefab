@@ -127,7 +127,9 @@ MonoBehaviour:
   sliderGO: {fileID: 4497850364140545336, guid: 7d344b837de06d542b62498d9b8759a7,
     type: 3}
   healthBarOffsetY: 3
-  juggernautGO: {fileID: 8304140187120273532, guid: 86d284d1545c7ba46abbe97ac2cb2c13,
+  juggernautGO: {fileID: 8304140187120273532, guid: 0d0a7220dabe64c438bf073381f215cf,
+    type: 3}
+  bloodParticles: {fileID: 1890375581939759316, guid: e9238cec3b8bd2c4c98d8300b8b3e9d2,
     type: 3}
 --- !u!54 &9016011990127279151
 Rigidbody:

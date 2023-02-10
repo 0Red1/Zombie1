@@ -8,12 +8,16 @@ public class GameManager : MonoBehaviour
     #region Variables
 	[SerializeField] private Material opacityMaterial;
 	[SerializeField] private List<GameObject> objectToChangeOpacity = new List<GameObject>();
+	[SerializeField] private int baseNumberEnemies;
 
 	private Material _originMaterial;
 	
 	private UIManager _ui;
+	private WaveManager _wm;
 
 	private bool _isPlaying = true;
+	private int _numberWave = 1;
+	private int _currentZombiesNumber;
 
 	public static GameManager instance;
 	#endregion
@@ -33,6 +37,11 @@ public class GameManager : MonoBehaviour
 
 	void Start(){
 		_ui = UIManager.instance;
+		_wm = WaveManager.instance;
+
+		_wm.StartWave(baseNumberEnemies);
+		_currentZombiesNumber = baseNumberEnemies;
+		_ui.UpdateZombieNumber(_currentZombiesNumber);
 	}
 	#endregion
 	
@@ -52,6 +61,14 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	public void ZombieDeath(){
+		_currentZombiesNumber--;
+		_ui.UpdateZombieNumber(_currentZombiesNumber);
+		if (_currentZombiesNumber == 0){
+			StartCoroutine(NextWave());
+		}
+	}
+
 	public void PlayerDead(){
 		_isPlaying = false;
 	}
@@ -62,6 +79,27 @@ public class GameManager : MonoBehaviour
 
 	public void Menu(){
 		SceneManager.LoadScene("MainMenu");
+	}
+
+	public void Pause(){
+		if (_isPlaying){
+			_isPlaying = false;
+			_ui.MenuPause(true);
+		}
+		else{
+			_isPlaying = true;
+			_ui.MenuPause(false);
+		}
+	}
+
+	IEnumerator NextWave(){
+		_ui.WaveCleared(true, _numberWave);
+		yield return new WaitForSeconds(5f);
+		_ui.WaveCleared(false, _numberWave);
+		_numberWave++;
+		_wm.StartWave(baseNumberEnemies * _numberWave);
+		_currentZombiesNumber = baseNumberEnemies * _numberWave;
+		_ui.UpdateZombieNumber(_currentZombiesNumber);
 	}
 	#endregion
 }

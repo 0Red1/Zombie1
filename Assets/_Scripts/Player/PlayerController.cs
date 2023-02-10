@@ -36,6 +36,7 @@ public class PlayerController : StatsManager
     private GameObject PlayerHealthBar;
     private GameObject _healthBarSlider;
     private Animator animator;
+    private float _time;
 
     #endregion
 
@@ -65,6 +66,12 @@ public class PlayerController : StatsManager
     }
 
     // Update is called once per frame
+    void Update(){
+        if (inputs.Pause){
+            _gm.Pause();
+        }
+    }
+    
     void FixedUpdate()
     {
         if (_gm.IsPlaying){
@@ -81,14 +88,26 @@ public class PlayerController : StatsManager
             Destroy(other.gameObject);
             JuggernautBonus();
         }
-
-        if (other.gameObject.tag == "Heal")
+        else if (other.gameObject.tag == "Heal")
         {
             Destroy(other.gameObject);
             HealBonus();
         }
         else if (other.gameObject.layer == LayerMask.NameToLayer("Batiment")){
             _gm.ChangeOpacity();
+        }
+        else if (other.gameObject.tag == "Water"){
+            _time = 0;
+        }
+    }
+
+    void OnTriggerStay(Collider other){
+        if (other.gameObject.tag == "Water" && _gm.IsPlaying){
+            _time += Time.deltaTime;
+            print(_time);
+            if (_time >= 2f){
+                Hurt(_maxHealth);
+            }
         }
     }
 
@@ -107,8 +126,13 @@ public class PlayerController : StatsManager
 
     void HealBonus()
     {
-        _currentHealth += 100;
-        _ui.SetHealthBar(_maxHealth, _healthBarSlider, _currentHealth, true);
+        if (_currentHealth + 100 < _maxHealth){
+            _currentHealth += 100;
+        }
+        else{
+            _currentHealth = _maxHealth;
+        }
+        _ui.UpdateHealthBar(_currentHealth, _healthBarSlider, true);
     }
 
     void Movement()

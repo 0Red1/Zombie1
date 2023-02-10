@@ -40,6 +40,15 @@ public class ZombieController : StatsManager
 	private GameObject _healthBar;
 	private GameObject _healthBarSlider;
 	private bool _trigger = false;
+	private bool _hurt = false;
+	private State _animState;
+
+	private enum State{
+		Walk,
+		Hit,
+		Detect,
+		Attack
+	}
 
 	#endregion
 	
@@ -67,13 +76,36 @@ public class ZombieController : StatsManager
 		_healthBarSlider = _healthBar.transform.GetChild(0).GetChild(0).gameObject;
 		_healthBar.transform.localPosition = new Vector3(0, healthBarOffsetY, 0);
 		_ui.SetHealthBar(_maxHealth, _healthBarSlider, 0, false);
+		_animState = State.Walk;
 
     }
 
-    void FixedUpdate()
+    void Update(){
+		switch(_animState){
+			case State.Walk:
+				break;
+			case State.Hit:
+				_animator.SetTrigger("Hit");
+				break;
+			case State.Detect:
+				_animator.SetTrigger("Detect");
+				break;
+			case State.Attack:
+				_animator.SetTrigger("Attack");
+				break;
+		}
+		if (_canAttack){
+			if (Vector3.Distance(transform.position, _player.transform.position) <= attackRange){
+				_player.GetComponent<PlayerController>().Hurt(_attackDamage);
+				_canAttack = false;
+			}
+		}
+	}
+	
+	void FixedUpdate()
     {
 		if (_gm.IsPlaying){
-			if (!_attack){
+			if (!_attack && !_hurt){
 				CheckTarget();;
 				if (!_target){
 					if (!_hasRandomDestination){
@@ -94,13 +126,6 @@ public class ZombieController : StatsManager
 		}
 		_ui.UpdateHealthBarRotation(_healthBar);
     }
-
-	void OnTriggerStay(Collider other){
-		if (other.gameObject.layer == LayerMask.NameToLayer("Player") && _canAttack){
-			other.GetComponent<PlayerController>().Hurt(_attackDamage);
-			_canAttack = false;
-		}
-	}
 	#endregion
 	
 	#region Custom Methods
@@ -110,7 +135,7 @@ public class ZombieController : StatsManager
 			_hasRandomDestination = false;
 			_target = _player;
 			_trigger = true;
-			_animator.SetTrigger("HitDetect");
+			_animState = State.Detect;
 			StartCoroutine(SetTarget());
 		}
 		else if (distance < chaseRange && _target && !_trigger){
@@ -125,7 +150,7 @@ public class ZombieController : StatsManager
 		if (Vector3.Distance(transform.position, _player.transform.position) <= attackRange){
 			_navAgent.destination = transform.position;
 			_attack = true;
-			StartCoroutine(Attack());
+			_animState = State.Attack;
 		}
 	}
 
@@ -148,6 +173,10 @@ public class ZombieController : StatsManager
 		_navAgent.destination = _target.transform.position;
 	}
 
+	public void LaunchAttack(){
+		StartCoroutine(Attack());
+	}
+
 	IEnumerator Attack(){
 		_attackDetect.SetActive(true);
 		_canAttack = true;
@@ -162,22 +191,40 @@ public class ZombieController : StatsManager
 		_navAgent.destination = transform.position;
 		yield return new WaitForSeconds(1f);
 		_trigger = false;
-		_navAgent.destination = _target.transform.position;
+		if (_target){
+			_navAgent.destination = _target.transform.position;
+		}
 	}
 
 	public void Hurt(int damage){
-		_animator.SetTrigger("HitDetect");
+		_animState = State.Hit;
+		SetHurt();
+		_navAgent.destination = transform.position;
 		_currentHealth -= damage;
         _ui.UpdateHealthBar(_currentHealth, _healthBarSlider, false);
         if (_currentHealth <= 0)
         {
-            Death();
+            _gm.ZombieDeath();
+			Death();
         }
+	}
+
+	public void SetWalk(){
+		_animState = State.Walk;
+	}
+
+	public void SetHurt(){
+		if (!_hurt){
+			_hurt = true;
+		}
+		else{
+			_hurt = false;
+		}
 	}
 
 	private void Death(){
 		float drop = Random.Range(0.1f, 1f);
-		if (drop < 0.91f){
+		if (drop < 0.06f){
 			Instantiate(juggernautGO, transform.position, Quaternion.identity);
 		}
 		Instantiate(bloodParticles, transform.position, Quaternion.identity);

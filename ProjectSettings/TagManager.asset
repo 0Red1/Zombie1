@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - Distributor
   - Juggernaut
+  - Heal
+  - Water
   layers:
   - Default
   - TransparentFX

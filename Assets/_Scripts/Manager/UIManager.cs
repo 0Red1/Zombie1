@@ -9,6 +9,9 @@ public class UIManager : MonoBehaviour
     #region Variables
 	[SerializeField] private GameObject lifeText;
 	[SerializeField] private GameObject blackscreen;
+	[SerializeField] private GameObject zombieNumberText;
+	[SerializeField] private GameObject waveClearedText;
+	[SerializeField] private GameObject menuPause;
 
 	public static UIManager instance;
 
@@ -76,6 +79,36 @@ public class UIManager : MonoBehaviour
 			yield return new WaitForSeconds(0.01f);
 		}
 		_gm.Menu();
+	}
+
+	public void UpdateZombieNumber(int number){
+		zombieNumberText.GetComponent<TMP_Text>().text = number.ToString();
+	}
+
+	public void WaveCleared(bool mustActive, int waveNumber){
+		waveClearedText.transform.GetChild(0).gameObject.GetComponent<TMP_Text>().text = "Wave " + waveNumber.ToString() + " cleared !";
+		StartCoroutine(WaveClearedAnim(mustActive));
+	}
+
+	public void MenuPause(bool isPaused){
+		menuPause.SetActive(isPaused);
+	}
+	
+	IEnumerator WaveClearedAnim(bool mustActive){
+		if (mustActive){
+			waveClearedText.SetActive(true);
+		}
+		int dir = 1;
+		if (mustActive){
+			dir = -1;
+		}
+		for (int i = 0; i < 150; i++){
+			waveClearedText.transform.localPosition += new Vector3(0, 2 * dir, 0);
+			yield return new WaitForSeconds(0.0001f);
+		}
+		if (!mustActive){
+			waveClearedText.SetActive(false);
+		}
 	}
 	#endregion
 }

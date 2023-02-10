@@ -36,18 +36,17 @@ public class Gun : MonoBehaviour
     }
     void Update()
     {
-        StartCoroutine(Shoot());
-        Look();
+        if (_inputs.Attack){
+            StartCoroutine(Shoot());
+            Look();
+        }
     }
     #endregion
 
     public IEnumerator Shoot()
     {
-        if (_inputs.Attack)
-        {
-            AmmoInstantiate();
-            yield return new WaitForSeconds(rateFire);
-        }
+        AmmoInstantiate();
+        yield return new WaitForSeconds(rateFire);
     }
 
     void AmmoInstantiate()

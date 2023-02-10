@@ -8,6 +8,7 @@ public class PlayerInputs : MonoBehaviour
 
     private Vector2 movement = Vector2.zero;
     private bool _attack;
+    private bool _pause;
 
     #endregion
 
@@ -16,11 +17,11 @@ public class PlayerInputs : MonoBehaviour
 
     public Vector2 Movement => movement;
     public bool Attack => _attack;
+    public bool Pause => _pause;
 
     #endregion
 
     #region Built in Methods
-    // Update is called once per frame
     void Update()
     {
         GetInputs();
@@ -33,6 +34,7 @@ public class PlayerInputs : MonoBehaviour
     {
         movement.Set(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         _attack = Input.GetMouseButtonDown(0);
+        _pause = Input.GetKeyDown(KeyCode.Escape);
     }
 
     #endregion
