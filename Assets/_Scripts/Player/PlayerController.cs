@@ -78,6 +78,12 @@ public class PlayerController : StatsManager
             Destroy(other.gameObject);
             JuggernautBonus();
         }
+
+        if (other.gameObject.tag == "Heal")
+        {
+            Destroy(other.gameObject);
+            HealBonus();
+        }
         else if (other.gameObject.layer == LayerMask.NameToLayer("Batiment")){
             _gm.ChangeOpacity();
         }
@@ -90,11 +96,18 @@ public class PlayerController : StatsManager
     }
 
     #endregion
-    void JuggernautBonus(){
+    void JuggernautBonus()
+    {
         _maxHealth += 100;
         _ui.SetHealthBar(_maxHealth, _healthBarSlider, _currentHealth);
     }
-    
+
+    void HealBonus()
+    {
+        _currentHealth += 100;
+        _ui.SetHealthBar(_maxHealth, _healthBarSlider, _currentHealth);
+    }
+
     void Movement()
     {
         if (!inputs) return;
