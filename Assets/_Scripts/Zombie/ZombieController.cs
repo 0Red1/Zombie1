@@ -64,7 +64,7 @@ public class ZombieController : StatsManager
 		_healthBar = Instantiate(sliderGO, transform);;
 		_healthBarSlider = _healthBar.transform.GetChild(0).GetChild(0).gameObject;
 		_healthBar.transform.localPosition = new Vector3(0, healthBarOffsetY, 0);
-		_ui.SetHealthBar(_maxHealth, _healthBarSlider, 0);
+		_ui.SetHealthBar(_maxHealth, _healthBarSlider, 0, false);
 
     }
 
@@ -161,7 +161,7 @@ public class ZombieController : StatsManager
 	public void Hurt(int damage){
 		_animator.SetTrigger("HitDetect");
 		_currentHealth -= damage;
-        _ui.UpdateHealthBar(_currentHealth, _healthBarSlider);
+        _ui.UpdateHealthBar(_currentHealth, _healthBarSlider, false);
         if (_currentHealth <= 0)
         {
             Death();
