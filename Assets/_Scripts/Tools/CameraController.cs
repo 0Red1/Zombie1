@@ -15,7 +15,7 @@ public class CameraController : MonoBehaviour
     #endregion
 
     #region Built in Methods
-    void Update()
+    void FixedUpdate()
     {
         transform.position = new Vector3(player.position.x, transform.position.y, player.position.z + offset);
         transform.LookAt(player.position);

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3363045898058105487}
   - component: {fileID: 224727431977294468}
   m_Layer: 0
-  m_Name: ZombieDeathParticle
+  m_Name: BloodParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

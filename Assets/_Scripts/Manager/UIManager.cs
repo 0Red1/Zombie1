@@ -8,10 +8,13 @@ public class UIManager : MonoBehaviour
 {
     #region Variables
 	[SerializeField] private GameObject lifeText;
+	[SerializeField] private GameObject blackscreen;
 
 	public static UIManager instance;
 
 	private int _maxHealth;
+
+	private GameManager _gm;
 	#endregion
 	
 	#region Properties
@@ -24,6 +27,10 @@ public class UIManager : MonoBehaviour
             return;
         }
         instance = this;
+	}
+
+	void Start(){
+		_gm = GameManager.instance;
 	}
 	#endregion
 	
@@ -55,6 +62,20 @@ public class UIManager : MonoBehaviour
 
 	public void UpdateHealthBarRotation(GameObject healthBar){
 		healthBar.transform.LookAt(Camera.main.transform); 
+	}
+
+	public void EndBlackScreen(){
+		StartCoroutine(ShowBlackScreen());
+	}
+	
+	IEnumerator ShowBlackScreen(){
+		blackscreen.SetActive(true);
+		for (int i = 0; i < 100; i++){
+			Color currentColor = blackscreen.GetComponent<Image>().color;
+			blackscreen.GetComponent<Image>().color = new Color(currentColor.r, currentColor.g, currentColor.b, currentColor.a + 0.01f);
+			yield return new WaitForSeconds(0.01f);
+		}
+		_gm.Menu();
 	}
 	#endregion
 }

@@ -12,6 +12,7 @@ public class PlayerController : StatsManager
     [SerializeField] private float turnSmoothTime = 0.1f;
     [SerializeField] private GameObject sliderGO;
     [SerializeField] private float healthBarOffsetY;
+    [SerializeField] private GameObject bloodGO;
 
     private float horizontal, vertical;
     private float verticalSpeed;
@@ -66,11 +67,13 @@ public class PlayerController : StatsManager
     // Update is called once per frame
     void FixedUpdate()
     {
-        Movement();
-        VerticalMovement();
-        PlayerRotation();
+        if (_gm.IsPlaying){
+            Movement();
+            VerticalMovement();
+            PlayerRotation();
+            UpdateAnimation();
+        }
         _ui.UpdateHealthBarRotation(PlayerHealthBar);
-        UpdateAnimation();
     }
 
     void OnTriggerEnter(Collider other){
@@ -170,6 +173,7 @@ public class PlayerController : StatsManager
         if (_currentHealth <= 0)
         {
             animator.SetBool("Death", true);
+            _gm.PlayerDead();
         }
     }
 
@@ -192,6 +196,8 @@ public class PlayerController : StatsManager
 
     public void Death()
     {
+        Instantiate(bloodGO, transform.position, Quaternion.identity);
+        _gm.EndGame();
         Destroy(gameObject);
     }
 }

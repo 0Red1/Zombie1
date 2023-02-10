@@ -24,6 +24,7 @@ public class ZombieController : StatsManager
 	private GameObject _ground;
 	private GameObject _canvas;
 	private Animator _animator;
+	private GameManager _gm;
 	
 	private UIManager _ui;
 
@@ -57,6 +58,7 @@ public class ZombieController : StatsManager
 		_animator = GetComponent<Animator>();
 
 		_ui = UIManager.instance;
+		_gm = GameManager.instance;
 
 		_maxHealth = MaxHealth;
 		_currentHealth = _maxHealth;
@@ -70,27 +72,32 @@ public class ZombieController : StatsManager
 
     void FixedUpdate()
     {
-		_ui.UpdateHealthBarRotation(_healthBar);
-		if (!_attack){
-			CheckTarget();;
-			if (!_target){
-				if (!_hasRandomDestination){
-					_hasRandomDestination = true;
-					SetRandomDestination();
+		if (_gm.IsPlaying){
+			if (!_attack){
+				CheckTarget();;
+				if (!_target){
+					if (!_hasRandomDestination){
+						_hasRandomDestination = true;
+						SetRandomDestination();
+					}
+					else{
+						CheckRandomDestination();
+					}
 				}
 				else{
-					CheckRandomDestination();
+					CheckTargetOnRange();
 				}
 			}
-			else{
-				CheckTargetOnRange();
-			}
 		}
+		else if (_navAgent.destination != transform.position){
+			_navAgent.destination = transform.position;
+		}
+		_ui.UpdateHealthBarRotation(_healthBar);
     }
 
 	void OnTriggerStay(Collider other){
 		if (other.gameObject.layer == LayerMask.NameToLayer("Player") && _canAttack){
-			print("BAM COUP DE POING DANS LE PLAYER");
+			other.GetComponent<PlayerController>().Hurt(_attackDamage);
 			_canAttack = false;
 		}
 	}
